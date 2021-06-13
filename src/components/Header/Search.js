@@ -1,12 +1,17 @@
-import React, {useRef} from 'react';
-import SearchIcon from "@material-ui/icons/Search";
-import {SearchBlock} from "./styled";
-import {clearSearchMovieGenres, fetchMovies, fetchMoviesBySearch, setMoviesSearch} from "../../redux";
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 
+import {clearSearchMovieGenres, fetchMoviesByPage, fetchMoviesBySearch, setMoviesSearch} from "../../redux";
+import SearchIcon from "@material-ui/icons/Search";
+import {SearchBlock} from "./styled";
+
 const Search = () => {
-    const {movies:{search}, app:{theme}} = useSelector(state => state);
+    const {
+        movies:{search},
+        app:{theme}
+    } = useSelector(state => state);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -23,10 +28,7 @@ const Search = () => {
             return false;
         }
         dispatch(setMoviesSearch(''));
-        dispatch(fetchMovies());
-
-
-
+        dispatch(fetchMoviesByPage(1));
     }
 
     const changeSearchText = ({target:{value}}) => {
@@ -37,11 +39,11 @@ const Search = () => {
 
     const handleSearch = () => confirmSearch(search)
     const handleEnter = ({key}) => key === 'Enter' && confirmSearch(search)
-let r = useRef()
+
     return (
-        <SearchBlock theme={theme} onClick={() => r.current.focus()}>
+        <SearchBlock theme={theme}>
             <button onClick={handleSearch}><SearchIcon color={theme? 'inherit' : 'primary'}/></button>
-            <input ref={r} type={'text'} placeholder={'Search your interesting..'} value={search}
+            <input type={'text'} placeholder={'Search your interesting..'} value={search}
                    onChange={changeSearchText} onKeyPress={handleEnter}/>
         </SearchBlock>
     );

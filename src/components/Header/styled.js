@@ -2,6 +2,9 @@ import styled from "styled-components";
 import {theme} from "../../constants";
 
 const HeaderWrapper = styled.header`
+  position: fixed;
+  z-index: 40;
+  top: 0;
   width: 100%;
   height: 9vh;
   box-shadow: ${props => (props.theme === true) ? theme.dark.headerShadow : theme.light.headerShadow};

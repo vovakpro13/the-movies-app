@@ -1,25 +1,21 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import {urls} from "../../../constants";
+
 import {
-    BlurContainer,
-    Info,
-    MoviePageWrapper,
-    OverBlock,
-    Poster,
-    MovieOverview,
-    Title,
-    Adult,
-    TagLine,
-    Money, Budget, Revenue, Companies, ReleaseDate, URL, Runtime
+    BlurContainer, Info, MoviePageWrapper,
+    OverBlock, Poster, MovieOverview,
+    Title, Adult, TagLine, Money, Budget,
+    Revenue, Companies, ReleaseDate, URL, Runtime
 } from "./styled";
-import LinkIcon from '@material-ui/icons/Link';
-import StarsRating from "../../MoviesListCard/StarsRating/StarsRating";
 import {Badges, Release} from "../../MoviesListCard/styled";
+
+import StarsRating from "../../MoviesListCard/StarsRating/StarsRating";
 import GenreBadge from "../../MoviesListCard/GenreBadge/GenreBadge";
 import Company from "./Company";
-import {urls} from "../../../constants";
+import LinkIcon from '@material-ui/icons/Link';
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
-import {useSelector} from "react-redux";
 
 const MoviePage = ({movie}) => {
 
@@ -32,14 +28,15 @@ const MoviePage = ({movie}) => {
 
     return (
         <MoviePageWrapper>
+
             <Poster>
                 <OverBlock>
                     <StarsRating rating={vote_average} size={28} char={'☆'}/>
-
                     <Adult adult={adult}>{adult ? '18+' : '18' }</Adult>
                 </OverBlock>
                 <img loading={'lazy'} src={urls.image + poster_path} alt={"title"}/>
             </Poster>
+
             <BlurContainer url={urls.image + backdrop_path}>
                 <Info  theme={theme}>
                     <Title theme={theme}><span>{title}</span>
@@ -47,11 +44,14 @@ const MoviePage = ({movie}) => {
                             {genres.map(g => <GenreBadge key={g.id} genre={g.name}/> ) }
                         </Badges></Title>
                     <TagLine theme={theme}>{tagline}</TagLine>
+
                     <MovieOverview theme={theme}>{overview}</MovieOverview>
+
                     <Runtime theme={theme}>
                         <QueryBuilderIcon style={{width: '20px'}}/>
                         <span>Runtime:</span> {runtime} min
                     </Runtime>
+
                     <Money theme={theme}>
                         {
                             budget > 0 &&
@@ -67,11 +67,14 @@ const MoviePage = ({movie}) => {
                         }
 
                     </Money>
+
                     <URL theme={theme} href={homepage} target={'_blank'}><LinkIcon/> Homepage</URL>
-                    <h4 >Companies</h4>
+
+                    <h4>Companies</h4>
                     <Companies>
                         {production_companies.map(c => <Company key={c.id} {...c}/>)}
                     </Companies>
+
                     <ReleaseDate>
                         {
                             release_date &&  <Release>
@@ -83,7 +86,6 @@ const MoviePage = ({movie}) => {
                     </ReleaseDate>
                 </Info>
             </BlurContainer>
-
         </MoviePageWrapper>
     );
 };

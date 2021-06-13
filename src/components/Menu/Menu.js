@@ -1,16 +1,17 @@
 import React, {useRef, useState} from 'react';
-import {Burger,  MenuSpace, MenuWrapper} from "./styled";
-import MenuItem from "./MenuItem";
-import {useDispatch, useSelector} from "react-redux";
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import {fetchMoviesByGenres, setMoviesSearch, toggleSearchMovieGenre} from "../../redux";
 import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+
+import {fetchMoviesByGenres, setMoviesSearch, toggleSearchMovieGenre} from "../../redux";
+import MenuItem from "./MenuItem";
+import {Burger, MenuSpace, MenuWrapper} from "./styled";
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 
 const Menu = () => {
-    const dispatch = useDispatch();
-    const {genres:{searchGenres, genres}, app:{theme}} = useSelector(state => state);
+    const {genres: {searchGenres, genres}, app: {theme}} = useSelector(state => state);
     const [menu, setMenu] = useState(false);
+    const dispatch = useDispatch();
     const history = useHistory();
     const menuRef = useRef();
 
@@ -19,7 +20,7 @@ const Menu = () => {
     }
 
     window.onclick = (e) => {
-        if (menuRef.current && !menuRef.current.contains(e.target)){
+        if (menuRef.current && !menuRef.current.contains(e.target)) {
             setMenu(false);
         }
     }
@@ -28,26 +29,24 @@ const Menu = () => {
         dispatch(toggleSearchMovieGenre(id))
         dispatch(fetchMoviesByGenres(1))
         dispatch(setMoviesSearch(''));
-        if (history.location.pathname !== '/'){
+        if (history.location.pathname !== '/') {
             history.push('/')
         }
-
     }
 
     return (
         <MenuWrapper ref={menuRef}>
-            <Burger theme={theme}  onClick={toggleMenu}>
+            <Burger theme={theme} onClick={toggleMenu}>
                 <span>Genres</span>
                 <ArrowDropDownIcon/>
             </Burger>
             <MenuSpace visible={menu}>
                 {
-                    genres
-                        .map(({id, name}) => <MenuItem
-                            key={id}
-                            title={name}
-                            isChosen={searchGenres.find(genreId => genreId === id)}
-                            onChoose={() => pushGenre(id)}/>)
+                    genres.map(({id, name}) => <MenuItem
+                        key={id}
+                        title={name}
+                        isChosen={searchGenres.find(genreId => genreId === id)}
+                        onChoose={() => pushGenre(id)}/>)
                 }
             </MenuSpace>
         </MenuWrapper>

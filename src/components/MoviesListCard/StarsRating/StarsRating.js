@@ -1,6 +1,7 @@
 import React from 'react';
-import {StarRatingWrapper, Votes} from "../styled";
 import ReactStars from "react-stars/dist/react-stars";
+
+import {StarRatingWrapper, Votes} from "../styled";
 
 const StarsRating = ({rating, vote_count, size, char}) => {
     return (

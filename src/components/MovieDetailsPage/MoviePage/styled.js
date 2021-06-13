@@ -4,7 +4,7 @@ import {theme} from "../../../constants";
 const MoviePageWrapper = styled.div`
   display: flex;
   align-items: normal;
-  margin: 40px 0;
+  margin: 14vh 0;
   
   @media (max-width: 435px){
     flex-direction: column;
@@ -49,7 +49,7 @@ const BlurContainer= styled.div`
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 
-  @media (max-width: 790px){
+  @media (max-width: 1050px){
     border-bottom-left-radius: 10px;
   }
 
@@ -71,11 +71,10 @@ const Info = styled.div`
           ? theme.dark.movieDetailsBackground 
           : theme.light.movieDetailsBackground
   };
-  //background-color: rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(6px);
   
-  @media (max-width: 790px){
+  @media (max-width: 1050px){
     border-bottom-left-radius: 10px;
   }
 

@@ -1,4 +1,3 @@
-import {Badge} from "../components/MoviesListCard/styled";
 
 export const urls ={
     api: 'https://api.themoviedb.org/3/',

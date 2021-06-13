@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {PosterPreviewWrapper} from "../styled";
 import {urls} from "../../../constants";
 

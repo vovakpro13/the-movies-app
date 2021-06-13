@@ -1,6 +1,7 @@
 import React from 'react';
-import {Avatar, UserName, UserSpace} from "./styled";
 import {useSelector} from "react-redux";
+
+import {Avatar, UserName, UserSpace} from "./styled";
 
 const UserInfo = () => {
     const {theme} = useSelector(state => state.app);

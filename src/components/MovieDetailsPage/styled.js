@@ -3,7 +3,7 @@ import {theme} from "../../constants";
 
 const DetailsPageWrapper = styled.div`
   width: 100%;
-  min-height: 91vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

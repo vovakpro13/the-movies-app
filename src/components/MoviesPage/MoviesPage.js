@@ -1,22 +1,17 @@
 import React, {useEffect} from 'react';
-import MoviesList from "../MoviesList/MoviesList";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    fetchMoviesByGenres,
-    fetchMoviesBySearch,
-    fetchMoviesOnPage,
-    setMoviesPagination, setTheme
-} from "../../redux";
+
+import {fetchMoviesByGenres, fetchMoviesBySearch, fetchMoviesByPage, setMoviesPagination, setTheme} from "../../redux";
+
+import MoviesList from "../MoviesList/MoviesList";
 import {MoviesPageWrapper, ThemeBlock, ThemeSwitch} from "./styled";
-import {Container, Preloader, Pagination, NotFound} from "../../common";
+import {Container, NotFound, Pagination, Preloader} from "../../common";
+
 import {Switch} from "@material-ui/core";
 import NightsStayIcon from '@material-ui/icons/NightsStay';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 
 const MoviesPage = () => {
-
-    const dispatch = useDispatch();
-
     const {
         movies: {
             search, movies, loading,
@@ -26,13 +21,16 @@ const MoviesPage = () => {
         app: {theme}
     } = useSelector(state => state);
 
-    useEffect(() => {
-        dispatch(getKindOfMovieFetcher(page));
-    }, []);
+    const dispatch = useDispatch();
 
-    const getKindOfMovieFetcher = (page) => {
-        return search ? fetchMoviesBySearch(page) :
-            searchGenres ? fetchMoviesByGenres(page) : fetchMoviesOnPage(page)
+    useEffect(() => {
+        dispatch(getMovieFetcher()(page));
+    }, [page]);
+
+    const getMovieFetcher = () => {
+        if(search) return fetchMoviesBySearch
+        if (searchGenres.length) return fetchMoviesByGenres
+        return fetchMoviesByPage
     }
 
     const changeTheme = () => {
@@ -42,37 +40,34 @@ const MoviesPage = () => {
 
     const chosePage = (page) => {
         dispatch(setMoviesPagination(page));
-        dispatch(getKindOfMovieFetcher(page));
+        dispatch(getMovieFetcher()(page));
     }
 
     return (
         <MoviesPageWrapper theme={theme}>
-            <Container >
+            <Container>
+                <ThemeBlock theme={theme}>
+                    <ThemeSwitch>
+                        {
+                            theme
+                                ? <NightsStayIcon style={{color: 'wheat'}}/>
+                                : <WbSunnyIcon style={{color: 'grey'}}/>
+                        }
 
-                    <ThemeBlock theme={theme}>
-                        <ThemeSwitch>
-                            {
-                                theme
-                                    ?  <NightsStayIcon style={{color: 'wheat'}}/>
-                                    :<WbSunnyIcon style={{color: 'grey'}}/>
-                            }
+                        <Switch checked={theme} onChange={changeTheme} name="gilad"/>
 
-                            <Switch checked={theme} onChange={changeTheme} name="gilad"/>
-
-                        </ThemeSwitch>
-                    </ThemeBlock>
-                    {
-                        !loading
-                            ? movies?.length
-                            ? <React.Fragment>
-                                <MoviesList movies={movies}/>
-                                <Pagination page={page} total={totalPages} setPage={chosePage}/>
-                            </React.Fragment>
-                            : <NotFound code={404} text={'Search returned no results..'}/>
-                            : <Preloader/>
-                    }
-
-
+                    </ThemeSwitch>
+                </ThemeBlock>
+                {
+                    !loading
+                        ? movies?.length
+                        ? <React.Fragment>
+                            <MoviesList movies={movies}/>
+                            <Pagination page={page} total={totalPages} setPage={chosePage}/>
+                        </React.Fragment>
+                        : <NotFound code={404} text={'Search returned no results..'}/>
+                        : <Preloader/>
+                }
             </Container>
         </MoviesPageWrapper>
     );

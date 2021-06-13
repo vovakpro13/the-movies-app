@@ -1,12 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+
 import {HeaderContent, HeaderWrapper, LogoText, LogoWrapper, Row} from "./styled";
-import {Container} from "../../common";
-import logo from '../../assets/popcorn.svg';
 import UserInfo from "./UserInfo/UserInfo";
 import Menu from "../Menu/Menu";
 import Search from "./Search";
-import {useSelector} from "react-redux";
+import {Container} from "../../common";
+import logo from '../../assets/popcorn.svg';
 
 const Header = () => {
     const {theme} = useSelector(state => state.app);

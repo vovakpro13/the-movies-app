@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {DetailsPageWrapper} from "./styled";
+import {useSelector} from "react-redux";
+
 import {moviesAPI} from "../../services";
 import {Container, NotFound, Preloader} from "../../common";
 import MoviePage from "./MoviePage/MoviePage";
-import {useSelector} from "react-redux";
+import {DetailsPageWrapper} from "./styled";
 
 const MovieDetailsPage = ({id}) => {
-
     const {theme} = useSelector(state => state.app);
     const [movie, setMovie] = useState(null);
     const [errorCode, setErrorCode] = useState(null);
@@ -20,13 +20,11 @@ const MovieDetailsPage = ({id}) => {
         setMovie(response);
     }
 
-
     useEffect(() => {
         getMovie()
     }, [id])
 
     return (
-
         <DetailsPageWrapper theme={theme}>
             <Container>
                 {
@@ -38,8 +36,6 @@ const MovieDetailsPage = ({id}) => {
                 }
             </Container>
         </DetailsPageWrapper>
-
-
     );
 };
 

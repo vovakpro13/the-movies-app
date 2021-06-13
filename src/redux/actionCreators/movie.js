@@ -6,44 +6,27 @@ const setMoviesLoading = payload => ({type: SET_LOADING_MOVIES, payload});
 const setMoviesPagination = (page, totalPages) => ({type: SET_PAGINATION, payload: {page, totalPages}});
 const setMoviesSearch = payload => ({type: SET_MOVIES_SEARCH, payload});
 
+const fetch = async (dispatch, apiMethod, ...methodProps) => {
+    dispatch(setMoviesLoading(true));
+    const {results, page, total_pages} = await apiMethod(...methodProps);
+    dispatch(setMovies(results));
+    dispatch(setMoviesPagination(page, total_pages));
+    dispatch(setMoviesLoading(false));
+}
 
-const fetchMovies = () =>
+const fetchMoviesByPage = (page) =>
     async (dispatch) => {
-        dispatch(setMoviesLoading(true));
-        const {results, total_pages} = await moviesAPI.getAll();
-        dispatch(setMovies(results))
-        dispatch(setMoviesPagination(1, total_pages));
-        dispatch(setMoviesLoading(false));
-
-    }
-
-const fetchMoviesOnPage = (page) =>
-    async (dispatch) => {
-        dispatch(setMoviesLoading(true));
-        const {results} = await moviesAPI.getByPage(page);
-        dispatch(setMovies(results));
-        dispatch(setMoviesLoading(false));
-
+        fetch(dispatch, moviesAPI.getByPage, page);
     }
 
 const fetchMoviesBySearch = (page) =>
     async (dispatch, getState) => {
-        dispatch(setMoviesLoading(true));
-        const {results, total_pages} = await moviesAPI.searchMovies(getState().movies.search, page);
-        dispatch(setMovies(results));
-        dispatch(setMoviesPagination(page, total_pages));
-        dispatch(setMoviesLoading(false));
-
+       fetch(dispatch, moviesAPI.searchMovies, getState().movies.search, page )
     }
 
 const fetchMoviesByGenres = (page) =>
     async (dispatch, getState) => {
-        dispatch(setMoviesLoading(true));
-        const {results, total_pages} = await moviesAPI.getByGenres(getState().genres.searchGenres, page);
-        dispatch(setMovies(results));
-        dispatch(setMoviesPagination(page, total_pages));
-        dispatch(setMoviesLoading(false));
-
+        fetch(dispatch, moviesAPI.getByGenres, getState().genres.searchGenres,  page)
     }
 
-export {setMovies, setMoviesPagination, fetchMovies, fetchMoviesOnPage, fetchMoviesBySearch, setMoviesSearch, fetchMoviesByGenres};
+export {setMovies, setMoviesPagination, fetchMoviesByPage, fetchMoviesBySearch, setMoviesSearch, fetchMoviesByGenres};

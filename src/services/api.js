@@ -8,58 +8,26 @@ const apiInstance = axios.create({
     }
 })
 
+const makeQuery = url => (
+    apiInstance
+        .get(urls.api + url)
+        .then(response => (response.data))
+        .catch(e => {
+            return e.response?.status
+        })
+)
+
 const moviesAPI = {
-    getAll: () => {
-        return apiInstance
-            .get('movie/popular')
-            .then(response => (response.data))
-            .catch(e => {
-                return e.response?.status
-            })
-    },
-    getByPage: (page) => {
-        return apiInstance
-            .get(`movie/popular?page=${page}`)
-            .then(response => (response.data))
-            .catch(e => {
-                return e.response?.status
-            })
-    },
-    getById: (id) => {
-        return apiInstance
-            .get(`movie/${id}`)
-            .then(response => (response.data))
-            .catch((e) => {
-                return e.response?.status
-            })
-    },
-    getByGenres: (genreIds, page) => {
-        return apiInstance
-            .get(`/discover/movie?with_genres=${genreIds.join(',')}&page=${page}`)
-            .then(response => (response.data))
-            .catch((e) => {
-                return e.response?.status
-            })
-    },
-    searchMovies: (query, page) => {
-        return apiInstance
-            .get(`/search/movie/?query=${query}&page=${page}`)
-            .then(response => (response.data))
-            .catch((e) => {
-                return e.response?.status
-            })
-    },
+    getByPage: page => (makeQuery(`movie/popular?page=${page}`)),
+    getById: id => (makeQuery(`movie/${id}`)),
+    getByGenres: (genreIds, page) => (
+        makeQuery(`/discover/movie?with_genres=${genreIds.join(',')}&page=${page}`)
+    ),
+    searchMovies: (query, page) => (makeQuery(`/search/movie/?query=${query}&page=${page}`))
 }
 
 const genresAPI = {
-    getAll: () => {
-        return apiInstance
-            .get('genre/movie/list')
-            .then(response => (response.data.genres))
-            .catch(e => {
-                return e.response?.status
-            })
-    }
+    getAll: () => (makeQuery('genre/movie/list').then(data => (data.genres)))
 }
 
 export {moviesAPI, genresAPI};
