@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import {CircularProgress} from "@material-ui/core";
 
-const Preloader = ({width}) => {
+export const Preloader = ({width}) => {
     return (
         <PreloaderWrapper >
             <CircularProgress width={width}/>
@@ -15,7 +15,5 @@ const PreloaderWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px
 `;
 
-export default Preloader;

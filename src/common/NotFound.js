@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from "styled-components";
 import sorry from '../assets/sorry.svg';
+import {useSelector} from "react-redux";
+import {theme} from "../constants";
 
-const NotFound = ({code, text}) => {
+export const NotFound = ({code, text}) => {
+    const {theme} = useSelector(state => state.app);
+
     return (
-        <Wrapper>
+        <Wrapper theme={theme}>
             <img src={sorry} alt="Not found"/>
             <h3>{code} </h3>
             <span>{text}</span>
@@ -19,11 +23,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 20px auto;
-  background-color: white;
+  background-color: ${props => (props.theme === true) ? theme.dark.cardBackground : theme.white} ;
   padding: 15px 30px;
   border-radius: 8px;
-  box-shadow: 1px 5px 12px #dbdbdb;
+  box-shadow: 1px 5px 12px ${props => (props.theme === true) ? theme.dark.cardBackground : '#dbdbdb'} ;
 
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black};
   img {
     width: 200px;
   }

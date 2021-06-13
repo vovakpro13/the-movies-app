@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {theme} from "../../constants";
 
 const CardWrapper = styled.div`
   width: 240px;
@@ -37,18 +38,18 @@ const PosterPreviewWrapper = styled.div`
 `;
 
 const Description = styled.div`
-  background-color: #ffffff;
   padding: 10px 15px;
-  border: 1px solid #dcdcdc;
   border-top: none;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   margin-top: -5px;
+  background-color: ${props => (props.theme === true) ? theme.dark.cardBackground : theme.white}
+
 `;
 
 const MovieTitle = styled.p`
-  color: #131313;
   font-size: 19px;
+  color: ${props => (props.theme === true) ? theme.white : theme.light.cardMovieTitle};
 `;
 
 const StarRatingWrapper = styled.div`
@@ -66,30 +67,32 @@ const Votes = styled.div`
 
 const Badge = styled.div`
   border-radius: 5px;
-  padding: 2px 5px;
-  background-color: #efefef;
+  padding: 4px 5px;
+  background-color: ${props => (props.theme === true) ? theme.black : theme.light.badge};
   margin: 4px 3px;
-  color: #040e39;
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black};
   font-size: 14px;
 `;
 
 const Overview = styled.div`
-  color: #5f5f5f;
+  color: ${props => (props.theme === true) ? theme.dark.cardText : theme.light.cardText};
   font-size: 14px;
   margin-top: 10px;
   line-height: 21px;
+  
 `;
 
 const Release = styled.div`
-  color: #2a2a2a;
   font-size: 15px;
   margin-top: 15px;
   display: flex;
   align-items: center;
   font-style: italic;
+  
   span{
     margin-left: 6px;
     font-weight: 300;
+    color: ${props => (props.theme === true) ? theme.white : theme.light.cardDate};
   }
 `;
 

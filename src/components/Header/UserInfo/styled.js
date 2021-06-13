@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {theme} from "../../../constants";
 
 const UserSpace = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const Avatar = styled.div`
 const UserName = styled.div`
   font-weight: 300;
   font-size: 17px;
-
+  color: ${props => (props.theme === true) ? theme.white : theme.black};
   @media (max-width: 435px){
     display: none;
   }

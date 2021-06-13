@@ -9,7 +9,7 @@ import {
     Title,
     Adult,
     TagLine,
-    Money, Budget, Revenue, Companies, ReleaseDate, URL
+    Money, Budget, Revenue, Companies, ReleaseDate, URL, Runtime
 } from "./styled";
 import StarsRating from "../../MoviesListCard/StarsRating/StarsRating";
 import {Badges, Release} from "../../MoviesListCard/styled";
@@ -17,15 +17,16 @@ import GenreBadge from "../../MoviesListCard/GenreBadge/GenreBadge";
 import Company from "./Company";
 import {urls} from "../../../constants";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-
+import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import {useSelector} from "react-redux";
 
 const MoviePage = ({movie}) => {
 
+    const {theme} = useSelector(state => state.app);
     const {
         adult, backdrop_path, budget, genres, homepage,
-        title, overview, popularity, poster_path, production_companies,
-        production_countries, release_date, revenue, runtime, spoken_languages,
-        status, tagline, vote_average
+        title, overview, poster_path, production_companies,
+        release_date, revenue, runtime, tagline, vote_average
     } = movie;
 
     return (
@@ -39,30 +40,34 @@ const MoviePage = ({movie}) => {
                 <img loading={'lazy'} src={urls.image + poster_path} alt={"title"}/>
             </Poster>
             <BlurContainer url={urls.image + backdrop_path}>
-                <Info>
-                    <Title>{title}
+                <Info  theme={theme}>
+                    <Title theme={theme}><span>{title}</span>
                         <Badges>
-                            {genres.map(g => <GenreBadge genre={g.name}/> ) }
+                            {genres.map(g => <GenreBadge key={g.id} genre={g.name}/> ) }
                         </Badges></Title>
-                    <TagLine>{tagline}</TagLine>
-                    <MovieOverview>{overview}</MovieOverview>
-                    <Money>
+                    <TagLine theme={theme}>{tagline}</TagLine>
+                    <MovieOverview theme={theme}>{overview}</MovieOverview>
+                    <Runtime theme={theme}>
+                        <QueryBuilderIcon style={{width: '20px'}}/>
+                        <span>Runtime:</span> {runtime} min
+                    </Runtime>
+                    <Money theme={theme}>
                         {
-                            budget !== 0 &&
+                            budget > 0 &&
                             <Budget>
                                 Budget: <span>${budget}</span>
                             </Budget>
                         }
                         {
-                            revenue !== 0 &&
-                            <Revenue>
+                            revenue > 0 &&
+                            <Revenue theme={theme}>
                                 Revenue: <span>${revenue}</span>
                             </Revenue>
                         }
 
                     </Money>
-                    <URL href={homepage} target={'_blank'}>{homepage}</URL>
-                    <h4>Companies</h4>
+                    <URL theme={theme} href={homepage} target={'_blank'}>{homepage}</URL>
+                    <h4 >Companies</h4>
                     <Companies>
                         {production_companies.map(c => <Company key={c.id} {...c}/>)}
                     </Companies>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-const Pagination = ({page, total, setPage}) => {
+export const Pagination = ({page, total, setPage}) => {
 
     const [inputValue, setInputValue] = useState(page);
 
@@ -36,7 +36,7 @@ const Pagination = ({page, total, setPage}) => {
         <PaginationWrapper>
             {page > 1 && <Arrow onClick={previous}><ChevronLeftIcon style={{fontSize: '40px'}}/></Arrow> }
 
-            <Input type="number" value={inputValue} onChange={handleChange} onKeyPress={handleEnter}/>
+            <Input type="number" placeholder={total} value={inputValue} onChange={handleChange} onKeyPress={handleEnter}/>
 
             {page <= total && <Arrow onClick={next}><ChevronRightIcon style={{fontSize: '40px'}}/></Arrow> }
         </PaginationWrapper>
@@ -48,6 +48,7 @@ const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 40px;
 `;
 
 const Input = styled.input`
@@ -70,4 +71,3 @@ const Arrow = styled.div`
   color: #6d6d6d;
 `;
 
-export default Pagination;

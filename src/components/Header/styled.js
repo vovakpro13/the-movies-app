@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import {theme} from "../../constants";
 
 const HeaderWrapper = styled.header`
   width: 100%;
-  height: 70px;
-  box-shadow: 0.5px 0.866px 0.5px rgba(0, 0, 0, 0.15);
-  background-color: #ffffff;
+  height: 9vh;
+  box-shadow: ${props => (props.theme === true) ? theme.dark.headerShadow : theme.light.headerShadow};
+  background-color: ${props => (props.theme === true) ? theme.black : theme.white};
 `;
 
 const HeaderContent = styled.div`
@@ -27,12 +28,13 @@ const LogoWrapper = styled.div`
 const LogoText = styled.p`
   font-size: 23px;
   letter-spacing: 0.4px;
-  color: #343434;
+  color: ${props => (props.theme === true) ? theme.white : '#343434'};
+  
 
   span {
     padding: 0 4px;
-    background-color: #313131;
-    color: white;
+    background-color: ${props => (props.theme === true) ? theme.dark.text : '#313131'};
+    color: ${props => (props.theme === true) ? theme.black : theme.white};
     margin-left: 3px;
     border-radius: 3px;
   }
@@ -48,46 +50,65 @@ const SearchBlock = styled.div`
   width: 300px;
   height: 30px;
   border-radius: 50px;
-  background-color: rgba(247, 246, 246, 0.47);
-  border: 1px solid #e7e7e7;
+  background-color: ${props => (props.theme === true) ? theme.white : 'rgba(247, 246, 246, 0.47)'};
+  border: ${props => (props.theme === true) ? '0' : '1px solid #e7e7e7'}; 
   padding: 3px 10px;
-  margin-right: 17px;
+  margin-right: 8px;
 
   input {
-    background-color: inherit;
+    background-color: transparent;
     outline: none;
     border: none;
     width: 90%;
     border-radius: inherit;
     padding: 0 5px;
+    
     @media (max-width: 435px){
-      font-size: 12px;
+      font-size: 13px;
     }
   }
 
   button {
     outline: none;
     border: none;
-    background-color: inherit;
+    background-color: transparent;
     color: #494949;
     cursor: pointer;
   }
-
+  
+  @media (max-width: 800px){
+    width: 250px;
+  }
   @media (max-width: 435px){
     width: 200px;
   }
-  @media (max-width: 435px){
+  @media (max-width: 380px){
     width: 170px;
-    height: 25px;
   }
   @media (max-width: 330px){
-    width: 130px;
+    width: 140px;
   }
 `;
 
 const Row = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
+  justify-content: space-between;
+  width: 390px;
+
+  @media (max-width: 800px){
+    max-width: 330px;
+  }
+  @media (max-width: 435px){
+    max-width: 240px;
+  }
+  @media (max-width: 380px){
+    max-width: 207px;
+  }
+  @media (max-width: 330px){
+    max-width: 160px;
+  }
 `;
 
 

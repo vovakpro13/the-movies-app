@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {Container} from "../../common";
 import {DetailsPageWrapper} from "./styled";
 import {moviesAPI} from "../../services";
-import Preloader from "../../common/Preloader";
-import NotFound from "../../common/NotFound";
+import {Container, NotFound, Preloader} from "../../common";
 import MoviePage from "./MoviePage/MoviePage";
+import {useSelector} from "react-redux";
 
 const MovieDetailsPage = ({id}) => {
 
+    const {theme} = useSelector(state => state.app);
     const [movie, setMovie] = useState(null);
     const [errorCode, setErrorCode] = useState(null);
 
     const getMovie = async () => {
         const response = await moviesAPI.getById(id);
-        if (response === 404 || !response){
+        if (response === 404 || !response) {
             setErrorCode(404);
             return false;
         }
@@ -26,8 +26,9 @@ const MovieDetailsPage = ({id}) => {
     }, [id])
 
     return (
-        <Container>
-            <DetailsPageWrapper>
+
+        <DetailsPageWrapper theme={theme}>
+            <Container>
                 {
                     !errorCode ?
                         movie
@@ -35,9 +36,10 @@ const MovieDetailsPage = ({id}) => {
                             : <Preloader/>
                         : <NotFound code={errorCode} text={`Movie with ID:${id} was not found..`}/>
                 }
-            </DetailsPageWrapper>
+            </Container>
+        </DetailsPageWrapper>
 
-        </Container>
+
     );
 };
 

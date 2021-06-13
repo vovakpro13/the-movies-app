@@ -1,15 +1,26 @@
 import styled from "styled-components";
+import {theme} from "../../constants";
 
 
 const MoviesPageWrapper = styled.div`
-  padding: 20px 0;
-  margin-top: 15px;
+  min-height: 91vh;
+  height: 100%;
+  padding: 0 0;
+  margin-top: 0;
+  background-color: ${props => (props.theme === true) ? theme.dark.background : 'transparent'};
 `;
 
-const PageTitle = styled.h3`
-  font-size: 26px;
-  font-weight: 400;
-  margin-left: 10px;
+const ThemeBlock = styled.div`
+  padding: 10px 20px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
+const ThemeSwitch = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-export {MoviesPageWrapper, PageTitle}
+
+export {MoviesPageWrapper, ThemeBlock, ThemeSwitch}

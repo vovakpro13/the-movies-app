@@ -14,7 +14,7 @@ const moviesAPI = {
             .get('movie/popular')
             .then(response => (response.data))
             .catch(e => {
-                console.log(e.response.status)
+                return e.response?.status
             })
     },
     getByPage: (page) => {
@@ -22,7 +22,7 @@ const moviesAPI = {
             .get(`movie/popular?page=${page}`)
             .then(response => (response.data))
             .catch(e => {
-                console.log(e.response.status)
+                return e.response?.status
             })
     },
     getById: (id) => {
@@ -30,7 +30,23 @@ const moviesAPI = {
             .get(`movie/${id}`)
             .then(response => (response.data))
             .catch((e) => {
-                return e?.response.status
+                return e.response?.status
+            })
+    },
+    getByGenres: (genreIds, page) => {
+        return apiInstance
+            .get(`/discover/movie?with_genres=${genreIds.join(',')}&page=${page}`)
+            .then(response => (response.data))
+            .catch((e) => {
+                return e.response?.status
+            })
+    },
+    searchMovies: (query, page) => {
+        return apiInstance
+            .get(`/search/movie/?query=${query}&page=${page}`)
+            .then(response => (response.data))
+            .catch((e) => {
+                return e.response?.status
             })
     },
 }
@@ -41,7 +57,7 @@ const genresAPI = {
             .get('genre/movie/list')
             .then(response => (response.data.genres))
             .catch(e => {
-                console.log(e.response.status)
+                return e.response?.status
             })
     }
 }

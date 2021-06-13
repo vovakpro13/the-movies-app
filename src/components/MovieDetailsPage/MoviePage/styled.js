@@ -1,14 +1,14 @@
 import styled from "styled-components";
+import {theme} from "../../../constants";
 
 const MoviePageWrapper = styled.div`
   display: flex;
   align-items: normal;
-  margin-bottom: 50px;
+  margin: 40px 0;
   
   @media (max-width: 435px){
     flex-direction: column;
     align-items: center;
-    
   }
   
 `;
@@ -37,11 +37,40 @@ const Poster = styled.div`
   }
 `;
 
+const BlurContainer= styled.div`
+  padding:0 20px 0 0;
+  width: 100%;
+  height: inherit;
+  background: url(${props => props.url})  no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  @media (max-width: 790px){
+    border-bottom-left-radius: 10px;
+  }
+
+  @media (max-width: 435px){
+    width: 370px;
+    border-top-right-radius: 0;
+  }
+
+  @media (max-width: 380px){
+    max-width: 300px;
+  }
+`;
+
 const Info = styled.div`
   width: 100%;
   height: 100%;
-  padding: 15px 20px;
-  background: linear-gradient(148deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 100%);
+  padding: 15px 30px;
+  background: ${props => (props.theme === true) 
+          ? theme.dark.movieDetailsBackground 
+          : theme.light.movieDetailsBackground
+  };
   //background-color: rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(6px);
@@ -59,36 +88,12 @@ const Info = styled.div`
   }
   
   h4{
-    margin-top: 15px;
+    margin: 15px 0 9px;
+    color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
   }
 `;
 
-const BlurContainer= styled.div`
-  padding:0 20px 0 0;
-  width: 100%;
-  height: inherit;
-  background: url(${props => props.url})  no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  opacity: 0.8;
 
-  @media (max-width: 790px){
-    border-bottom-left-radius: 10px;
-  }
-
-  @media (max-width: 435px){
-    width: 370px;
-    border-top-right-radius: 0;
-  }
-
-  @media (max-width: 380px){
-    max-width: 300px;
-  }
-`;
 
 const OverBlock = styled.div`
   position: absolute;
@@ -113,23 +118,25 @@ const Title = styled.div`
   font-weight: 500;
   letter-spacing: 0.4px;
   font-size: 28px;
-  color: black;
   display: flex;
   justify-content: space-between;
 
+  span{
+    color: ${props => (props.theme === true) ? theme.white : theme.black };
+
+  }
   @media (max-width: 790px){
     display: block;
     margin-bottom: 6px;
   }
-
   
 `;
 
 const MovieOverview = styled.div`
-  color: black;
   margin-top: 20px;
   font-weight: 300;
   font-size: 17px;
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
 `;
 
 const Adult = styled.div`
@@ -152,12 +159,14 @@ const TagLine = styled.span`
   font-weight: 400;
   padding-bottom: 2px;
   border-bottom: 1px solid;
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
 `;
 const Money = styled.div`
   margin: 20px 0;
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
 `;
 const Budget = styled.div`
-  color: black;
+  
   span{
     font-weight: 300;
 
@@ -165,7 +174,7 @@ const Budget = styled.div`
 `;
 const Revenue = styled.div`
   span {
-    color: #055005;
+    color: ${props => (props.theme === true) ? theme.dark.text : '#055005' };
     font-weight: 300;
   }
 `;
@@ -181,7 +190,8 @@ const Companies = styled.div`
 
 
 const CompanyWrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.85);
+  background: ${props => (props.theme === true) ? '#000' : theme.light.companyBackground };
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black};
   border-radius: 7px;
   padding: 14px;
   flex-basis: 18%;
@@ -189,7 +199,8 @@ const CompanyWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin-right: 15px;
-margin-bottom: 15px;
+  margin-bottom: 15px;
+  
   img {
     width: 40px;
     margin-right: 10px;
@@ -208,14 +219,30 @@ const ReleaseDate = styled.div`
   bottom: 0;
   right: 0;
   padding: 15px 25px;
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
 `;
+
 const URL = styled.a`
   margin-bottom: 15px;
-  color: rgba(6, 33, 62, 0.65);
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
 
   :hover {
     transition-duration: 0.2s;
-    color: rgb(0, 0, 0);
+    color: ${props => (props.theme === true) ? theme.black : theme.dark.text  };
   }
 `;
-export {MoviePageWrapper,CompanyWrapper,ReleaseDate, URL, Companies, TagLine,Revenue,Budget,Money, Poster, Info, Title, OverBlock, BlurContainer,Adult, MovieOverview};
+
+const Runtime = styled.div`
+  color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
+  margin-top: 15px;
+  align-items: center;
+  display: flex;
+  font-weight: 300;
+  
+  span{
+    margin:0  3px;
+    font-weight: 400;
+  }
+  
+`;
+export {MoviePageWrapper, Runtime,CompanyWrapper,ReleaseDate, URL, Companies, TagLine,Revenue,Budget,Money, Poster, Info, Title, OverBlock, BlurContainer,Adult, MovieOverview};

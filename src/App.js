@@ -4,7 +4,7 @@ import MoviesPage from "./components/MoviesPage/MoviesPage";
 import {useEffect} from "react";
 import {fetchGenres} from "./redux";
 import {useDispatch, useSelector} from "react-redux";
-import Preloader from "./common/Preloader";
+import {Preloader} from "./common";
 import MovieDetailsPage from "./components/MovieDetailsPage/MovieDetailsPage";
 
 function App() {
