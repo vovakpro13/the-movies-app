@@ -224,8 +224,9 @@ const ReleaseDate = styled.div`
 
 const URL = styled.a`
   margin-bottom: 15px;
-  color: ${props => (props.theme === true) ? theme.dark.text : theme.black };
-
+  color: ${props => (props.theme === true) ? theme.dark.text : '#0a5461' };
+  display: flex;
+  align-items: center;
   :hover {
     transition-duration: 0.2s;
     color: ${props => (props.theme === true) ? theme.black : theme.dark.text  };

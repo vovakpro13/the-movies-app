@@ -11,6 +11,7 @@ import {
     TagLine,
     Money, Budget, Revenue, Companies, ReleaseDate, URL, Runtime
 } from "./styled";
+import LinkIcon from '@material-ui/icons/Link';
 import StarsRating from "../../MoviesListCard/StarsRating/StarsRating";
 import {Badges, Release} from "../../MoviesListCard/styled";
 import GenreBadge from "../../MoviesListCard/GenreBadge/GenreBadge";
@@ -66,7 +67,7 @@ const MoviePage = ({movie}) => {
                         }
 
                     </Money>
-                    <URL theme={theme} href={homepage} target={'_blank'}>{homepage}</URL>
+                    <URL theme={theme} href={homepage} target={'_blank'}><LinkIcon/> Homepage</URL>
                     <h4 >Companies</h4>
                     <Companies>
                         {production_companies.map(c => <Company key={c.id} {...c}/>)}
