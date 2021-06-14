@@ -60,7 +60,7 @@ const MoviesPage = () => {
                 </ThemeBlock>
                 {
                     !loading
-                        ? movies?.length
+                        ? movies.length
                         ? <React.Fragment>
                             <MoviesList movies={movies}/>
                             <Pagination page={page} total={totalPages} setPage={chosePage}/>
